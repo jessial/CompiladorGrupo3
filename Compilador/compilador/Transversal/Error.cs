@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace compilador.Transversal
 {
-    class Error
+    public class Error
     {
         public int numerolinea;
         public int posicionInicialLinea;

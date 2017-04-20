@@ -16,6 +16,7 @@ namespace compilador.AnalisisLexico
         private string caracterActual = null;
         public int estadoActual;
         private Linea lineaActual = null;
+        private Form1 Form = Form1.getInstance();
 
         public AnalizadorLexico()
         {
@@ -78,16 +79,26 @@ namespace compilador.AnalisisLexico
                             LeerSiguienteCaracter();
                         }
 
-                        if (char.IsLetter(caracterActual.ToCharArray()[0]) || "$".Equals(caracterActual) || "_".Equals(caracterActual))
+                        if ((char.IsLetter(caracterActual.ToCharArray()[0]) || "$".Equals(caracterActual) || "_".Equals(caracterActual)) && (!"O".Equals(caracterActual) && !"Y".Equals(caracterActual)))
                         {
                             estadoActual = 4;
                             lexema += caracterActual;
 
                         }
-                        else if (",".Equals(caracterActual))
+                        else if ("Y".Equals(caracterActual))
                         {
-                            estadoActual = 2;
+                            estadoActual = 34;
                             lexema += caracterActual;
+                        }
+                        else if ("O".Equals(caracterActual))
+                        {
+                            estadoActual = 35;
+                            lexema += caracterActual;
+                        }
+                        else if (";".Equals(caracterActual))
+                        {
+                            estadoActual = 13;
+                           // lexema += caracterActual;
                         }
                         else if ("+".Equals(caracterActual))
                         {
@@ -246,15 +257,16 @@ namespace compilador.AnalisisLexico
                         int numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "SUMA");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
-
-
+  
                         break;
                     case 6:
                         posicionInicial = (Puntero - 1) - lexema.Length;
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "RESTA");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
 
                         break;
@@ -263,49 +275,63 @@ namespace compilador.AnalisisLexico
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "MULTIPLICACIÓN");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
+
                         break;
                     case 8:
                         posicionInicial = (Puntero - 1) - lexema.Length;
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "DIVISIÓN");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
+
                         break;
                     case 9:
                         posicionInicial = (Puntero - 1) - lexema.Length;
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "MODULO");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
+
                         break;
                     case 10:
                         posicionInicial = (Puntero - 1) - lexema.Length;
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "PARENTESIS ABRE");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
+
                         break;
                     case 11:
                         posicionInicial = (Puntero - 1) - lexema.Length;
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "PARENTESIS CIERRA");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
+
                         break;
                     case 12:
                         posicionInicial = (Puntero - 1) - lexema.Length;
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "FIN DE ARCHIVO");
+                        Form.datos(componente);
                         continuarEvaluacion = false;
+
                         break;
                     case 13:
-                        posicionInicial = (Puntero - 1) - lexema.Length;
+                        /*posicionInicial = (Puntero - 1) - lexema.Length;
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "SALTO DE LINEA");
+                        Form.datos(componente);*/
                         estadoActual = 0;
                         lexema = "";
                         CargarLinea();
+
                         break;
                     case 14:
                         DevolverPuntero();
@@ -313,6 +339,7 @@ namespace compilador.AnalisisLexico
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "NUMERO ENTERO");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
 
                         break;
@@ -322,43 +349,28 @@ namespace compilador.AnalisisLexico
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "NUMERO DECIMAL");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
+
                         break;
                     case 16:
-                        if (lexema.Equals("Y"))
+                        DevolverPuntero();
+                        string categoria = null;
+                        posicionInicial = (Puntero - 1) - lexema.Length;
+                        numeroLinea = lineaActual.Numero;
+                        if (TablaPalabrasReservadas.obtenerTablaPalabrasReservadas().EsPalabraReservada(lexema))
                         {
-                            posicionInicial = (Puntero - 1) - lexema.Length;
-                            numeroLinea = lineaActual.Numero;
-                            componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "OPERADOR Y");
-                        }
-                        else if (lexema.Equals("O"))
-                        {
-                            posicionInicial = (Puntero - 1) - lexema.Length;
-                            numeroLinea = lineaActual.Numero;
-                            componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "OPERADOR O");
+                            ComponenteLexico palabraReservada = TablaPalabrasReservadas.obtenerTablaPalabrasReservadas().ObtenerPalabraReservada(lexema);
+                            componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, palabraReservada.Categoria);
                         }
                         else
                         {
-                            DevolverPuntero();
-                            string categoria = null;
-
-                            posicionInicial = (Puntero - 1) - lexema.Length;
-                            numeroLinea = lineaActual.Numero;
-                            if (TablaPalabrasReservadas.obtenerTablaPalabrasReservadas().EsPalabraReservada(lexema))
-                            {
-                                ComponenteLexico palabraReservada = TablaPalabrasReservadas.obtenerTablaPalabrasReservadas().ObtenerPalabraReservada(lexema);
-                                componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, palabraReservada.Categoria);
-                            }
-                            else
-                            {
-                                categoria = "IDENTIFICADOR";
-                                componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, categoria);
-                            }
+                            categoria = "IDENTIFICADOR";
+                            componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, categoria);
                         }
-
-                        //colocar el componente en la tabla de simbolos
+                        
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
-
+                        Form.datos(componente);
                         continuarEvaluacion = false;
                         break;
                     case 17:
@@ -369,6 +381,8 @@ namespace compilador.AnalisisLexico
                         lexema += "0";
                         componente = ComponenteLexico.CREATE(lineaActual.Numero, (Puntero - 1) - lexema.Length, lexema, "NUMERO DECIMAL DUMMY");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
+                        Form.errores(ErrorNumeroDecimal);
                         continuarEvaluacion = false;
 
                         break;
@@ -380,8 +394,9 @@ namespace compilador.AnalisisLexico
                         ManejadorErrores.ObtenerManejadorErrores().AgregarError(ErrorSimboloInvalido);
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, caracterActual, "SIMBOLO NO VALIDO");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
-
+                        Form.errores(ErrorSimboloInvalido);
                         continuarEvaluacion = false;
+
                         break;
 
                     case 19:
@@ -389,7 +404,9 @@ namespace compilador.AnalisisLexico
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "IGUAL QUE");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
+
                         break;
                     case 20:
                         LeerSiguienteCaracter();
@@ -440,31 +457,37 @@ namespace compilador.AnalisisLexico
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "DIFERENTE QUE");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
-                        break;
 
+                        break;
                     case 24:
                         posicionInicial = (Puntero - 1) - lexema.Length;
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "MENOR O IGUAL QUE");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
-                        break;
 
+                        break;
                     case 25:
                         DevolverPuntero();
                         posicionInicial = (Puntero - 1) - lexema.Length;
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "MENOR QUE");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
+
                         break;
                     case 26:
                         posicionInicial = (Puntero - 1) - lexema.Length;
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "MAYOR O IGUAL QUE");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
+
                         break;
                     case 27:
                         DevolverPuntero();
@@ -472,14 +495,18 @@ namespace compilador.AnalisisLexico
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "MAYOR QUE");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
+
                         break;
                     case 28:
                         posicionInicial = (Puntero - 1) - lexema.Length;
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "ASIGNACION");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
+
                         break;
                     case 29:
                         DevolverPuntero();
@@ -489,9 +516,9 @@ namespace compilador.AnalisisLexico
                         Error ErrorAsignacionInvalido = Error.CREATE(lineaActual.Numero, (Puntero - 1) - lexema.Length, caracterActual, MensajeError29, "LEXICO");
                         ManejadorErrores.ObtenerManejadorErrores().AgregarError(ErrorAsignacionInvalido);
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, caracterActual, "ASIGNACION NO VALIDA");
-                        TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
-
+                        Form.errores(ErrorAsignacionInvalido);
                         continuarEvaluacion = false;
+
                         break;
                     case 30:
                         LeerSiguienteCaracter();
@@ -506,13 +533,16 @@ namespace compilador.AnalisisLexico
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "DIFERENTE QUE");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
+
                         break;
                     case 32:
                         posicionInicial = (Puntero - 1) - lexema.Length;
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "CORCHETE ABRE");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
 
                         break;
@@ -521,6 +551,45 @@ namespace compilador.AnalisisLexico
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "CORCHETE CIERRA");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
+                        continuarEvaluacion = false;
+
+                        break;
+                    case 34:
+                        LeerSiguienteCaracter();
+                        if (char.IsLetter(caracterActual.ToCharArray()[0]) || "$".Equals(caracterActual) || "_".Equals(caracterActual))
+                        {
+                            estadoActual = 4;
+                            lexema += caracterActual;
+                        }
+                        else estadoActual = 36;
+
+                        break;
+                    case 35:
+                        LeerSiguienteCaracter();
+                        if (char.IsLetter(caracterActual.ToCharArray()[0]) || "$".Equals(caracterActual) || "_".Equals(caracterActual))
+                        {
+                            estadoActual = 4;
+                            lexema += caracterActual;
+                        }
+                        else estadoActual = 37;
+
+                        break;
+                    case 36:
+                        posicionInicial = (Puntero - 1) - lexema.Length;
+                        numeroLinea = lineaActual.Numero;
+                        componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "OPERADOR Y");
+                        TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
+                        continuarEvaluacion = false;
+
+                        break;
+                    case 37:
+                        posicionInicial = (Puntero - 1) - lexema.Length;
+                        numeroLinea = lineaActual.Numero;
+                        componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "OPERADOR O");
+                        TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
                         continuarEvaluacion = false;
 
                         break;

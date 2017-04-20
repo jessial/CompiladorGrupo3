@@ -38,25 +38,26 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.Lexema = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NumeroLinea = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Categoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PosicionInicial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PosicionFinal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ValorRecibido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NumeroDeLinea = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PosicionInicialError = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PosicionFinalError = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TipoError = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.Lexema = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumeroLinea = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Categoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PosicionInicial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PosicionFinal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCompilarCod
             // 
-            this.btnCompilarCod.Location = new System.Drawing.Point(242, 205);
+            this.btnCompilarCod.Location = new System.Drawing.Point(15, 207);
             this.btnCompilarCod.Name = "btnCompilarCod";
             this.btnCompilarCod.Size = new System.Drawing.Size(104, 25);
             this.btnCompilarCod.TabIndex = 0;
@@ -71,16 +72,18 @@
             this.codigo.Name = "codigo";
             this.codigo.Size = new System.Drawing.Size(334, 146);
             this.codigo.TabIndex = 1;
+            this.codigo.TextChanged += new System.EventHandler(this.codigo_TextChanged);
             // 
             // resultado
             // 
             this.resultado.Enabled = false;
-            this.resultado.Location = new System.Drawing.Point(368, 12);
+            this.resultado.Location = new System.Drawing.Point(368, 46);
             this.resultado.Multiline = true;
             this.resultado.Name = "resultado";
-            this.resultado.Size = new System.Drawing.Size(284, 302);
+            this.resultado.Size = new System.Drawing.Size(290, 302);
             this.resultado.TabIndex = 2;
             this.resultado.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.resultado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             // 
             // IngreseTexto
             // 
@@ -109,7 +112,7 @@
             // 
             // btnCargar
             // 
-            this.btnCargar.Location = new System.Drawing.Point(242, 274);
+            this.btnCargar.Location = new System.Drawing.Point(235, 274);
             this.btnCargar.Name = "btnCargar";
             this.btnCargar.Size = new System.Drawing.Size(104, 23);
             this.btnCargar.TabIndex = 6;
@@ -123,9 +126,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(514, 347);
+            this.button1.Location = new System.Drawing.Point(125, 207);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(104, 25);
             this.button1.TabIndex = 7;
             this.button1.Text = "Analizar";
             this.button1.UseVisualStyleBackColor = true;
@@ -141,50 +144,10 @@
             this.PosicionInicialError,
             this.PosicionFinalError,
             this.TipoError});
-            this.dataGridView1.Location = new System.Drawing.Point(674, 27);
+            this.dataGridView1.Location = new System.Drawing.Point(15, 368);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(587, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(643, 187);
             this.dataGridView1.TabIndex = 8;
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Lexema,
-            this.NumeroLinea,
-            this.Categoria,
-            this.PosicionInicial,
-            this.PosicionFinal});
-            this.dataGridView2.Location = new System.Drawing.Point(674, 220);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(565, 150);
-            this.dataGridView2.TabIndex = 9;
-            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
-            // 
-            // Lexema
-            // 
-            this.Lexema.HeaderText = "Lexema";
-            this.Lexema.Name = "Lexema";
-            // 
-            // NumeroLinea
-            // 
-            this.NumeroLinea.HeaderText = "NumeroLinea";
-            this.NumeroLinea.Name = "NumeroLinea";
-            // 
-            // Categoria
-            // 
-            this.Categoria.HeaderText = "Categoria";
-            this.Categoria.Name = "Categoria";
-            // 
-            // PosicionInicial
-            // 
-            this.PosicionInicial.HeaderText = "PosicionInicial";
-            this.PosicionInicial.Name = "PosicionInicial";
-            // 
-            // PosicionFinal
-            // 
-            this.PosicionFinal.HeaderText = "PosicionFinal";
-            this.PosicionFinal.Name = "PosicionFinal";
             // 
             // ValorRecibido
             // 
@@ -216,11 +179,69 @@
             this.TipoError.HeaderText = "TipoError";
             this.TipoError.Name = "TipoError";
             // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Lexema,
+            this.NumeroLinea,
+            this.Categoria,
+            this.PosicionInicial,
+            this.PosicionFinal});
+            this.dataGridView2.Location = new System.Drawing.Point(695, 46);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
+            this.dataGridView2.Size = new System.Drawing.Size(545, 509);
+            this.dataGridView2.TabIndex = 9;
+            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
+            // 
+            // Lexema
+            // 
+            this.Lexema.HeaderText = "Lexema";
+            this.Lexema.Name = "Lexema";
+            this.Lexema.ReadOnly = true;
+            // 
+            // NumeroLinea
+            // 
+            this.NumeroLinea.HeaderText = "NumeroLinea";
+            this.NumeroLinea.Name = "NumeroLinea";
+            this.NumeroLinea.ReadOnly = true;
+            // 
+            // Categoria
+            // 
+            this.Categoria.HeaderText = "Categoria";
+            this.Categoria.Name = "Categoria";
+            this.Categoria.ReadOnly = true;
+            // 
+            // PosicionInicial
+            // 
+            this.PosicionInicial.HeaderText = "PosicionInicial";
+            this.PosicionInicial.Name = "PosicionInicial";
+            this.PosicionInicial.ReadOnly = true;
+            // 
+            // PosicionFinal
+            // 
+            this.PosicionFinal.HeaderText = "PosicionFinal";
+            this.PosicionFinal.Name = "PosicionFinal";
+            this.PosicionFinal.ReadOnly = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(235, 208);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(104, 23);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "Borrar";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1300, 509);
+            this.ClientSize = new System.Drawing.Size(1300, 567);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
@@ -231,9 +252,12 @@
             this.Controls.Add(this.resultado);
             this.Controls.Add(this.codigo);
             this.Controls.Add(this.btnCompilarCod);
+            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Tarea";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
@@ -265,6 +289,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PosicionInicialError;
         private System.Windows.Forms.DataGridViewTextBoxColumn PosicionFinalError;
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoError;
+        private System.Windows.Forms.Button button2;
     }
 }
 

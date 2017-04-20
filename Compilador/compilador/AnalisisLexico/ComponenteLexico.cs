@@ -27,7 +27,4 @@ namespace compilador.AnalisisLexico
             return new ComponenteLexico(numeroLinea, posicionInicialLinea, (posicionInicialLinea + lexema.Length), lexema, categoria);
         }
     }
-
-    }
-//}
-
+ }

@@ -1,4 +1,5 @@
 ﻿using compilador.AnalisisLexico;
+using System.Threading;
 using compilador.Transversal;
 using System;
 using System.Collections.Generic;
@@ -10,22 +11,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace compilador
 {
     public partial class Form1 : Form
     {
+        private static Form1 Form;
+
+        public static Form1 getInstance()
+        {
+            if (Form == null || Form.IsDisposed)
+            {
+                Form = new Form1();
+        
+            }
+            return Form;
+        }
         public Form1()
         {
             InitializeComponent();
         }
+
+
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-       
+
         private void btnCompilarCod_Click(object sender, EventArgs e)
         {
             CacheArchivo.getInstance().limpiarLista();
@@ -39,7 +54,7 @@ namespace compilador
                 string lineaCompleta = (i + 1).ToString() + "-> " + linea[i];
                 listaLineas.Add(lineaCompleta);
                 CacheArchivo.getInstance().adicionar(new Linea((i + 1), linea[i]));
-                
+
             }
 
             resultado.Text = String.Join(Environment.NewLine, listaLineas);
@@ -97,44 +112,45 @@ namespace compilador
         {
             AnalizadorLexico anaLex = new AnalizadorLexico();
             ComponenteLexico componente = anaLex.Analizar();
-            //MessageBox.Show(componente.Lexema + "->" + componente.Categoria);
             while (!componente.Lexema.Equals("@EOF@"))
             {
-                //MessageBox.Show(componente.Lexema + "->" + componente.Categoria);
                 anaLex.Puntero = componente.PosicionFinalLinea + 1;
                 anaLex.estadoActual = 0;
                 componente = anaLex.Analizar();
             }
-            int fila = 0;
-            foreach (ComponenteLexico element in TablaSimbolos.obtenerTablaSimbolos().obtenerTablaDeSimbolos1())
-            {
-                int renglon = dataGridView2.Rows.Add();
-                dataGridView2.Rows[fila].Cells["Lexema"].Value = TablaSimbolos.obtenerTablaSimbolos().obtenerTablaDeSimbolos1()[fila].Lexema;
-                dataGridView2.Rows[fila].Cells["NumeroLinea"].Value = TablaSimbolos.obtenerTablaSimbolos().obtenerTablaDeSimbolos1()[fila].NumeroLinea;
-                dataGridView2.Rows[fila].Cells["Categoria"].Value = TablaSimbolos.obtenerTablaSimbolos().obtenerTablaDeSimbolos1()[fila].Categoria;
-                dataGridView2.Rows[fila].Cells["PosicionInicial"].Value = TablaSimbolos.obtenerTablaSimbolos().obtenerTablaDeSimbolos1()[fila].PosicionInicialLinea;
-                dataGridView2.Rows[fila].Cells["PosicionFinal"].Value = TablaSimbolos.obtenerTablaSimbolos().obtenerTablaDeSimbolos1()[fila].PosicionFinalLinea;
-                fila++;
-            }
 
-            int fila1 = 0;
-            foreach (Error element in ManejadorErrores.ObtenerManejadorErrores().ObtenerErroresCompletos())
-            {
-                int renglon2 = dataGridView1.Rows.Add();
-                dataGridView1.Rows[fila1].Cells["ValorRecibido"].Value = ManejadorErrores.ObtenerManejadorErrores().ObtenerErroresCompletos()[fila1].lexema;
-                dataGridView1.Rows[fila1].Cells["Descripcion"].Value = ManejadorErrores.ObtenerManejadorErrores().ObtenerErroresCompletos()[fila1].MensajeError;
-                dataGridView1.Rows[fila1].Cells["NumeroDeLinea"].Value = ManejadorErrores.ObtenerManejadorErrores().ObtenerErroresCompletos()[fila1].numerolinea;
-                dataGridView1.Rows[fila1].Cells["PosicionInicialError"].Value = ManejadorErrores.ObtenerManejadorErrores().ObtenerErroresCompletos()[fila1].posicionInicialLinea;
-                dataGridView1.Rows[fila1].Cells["PosicionFinalError"].Value = ManejadorErrores.ObtenerManejadorErrores().ObtenerErroresCompletos()[fila1].posicionFinalLinea;
-                dataGridView1.Rows[fila1].Cells["TipoError"].Value = ManejadorErrores.ObtenerManejadorErrores().ObtenerErroresCompletos()[fila1].TipoError;
-                fila1++;
-            }
-
+        }
+        public void errores(Error error)
+        {
+            dataGridView1.Rows.Add(error.lexema,error.MensajeError,error.numerolinea,error.posicionInicialLinea,error.posicionFinalLinea,error.TipoError);
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            
+        }
 
+        public void datos(ComponenteLexico data)
+        {
+            dataGridView2.Rows.Add(data.Lexema, data.NumeroLinea, data.Categoria, data.PosicionInicialLinea, data.PosicionFinalLinea);
+        }
+
+        private void codigo_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            codigo.ResetText();
+            resultado.ResetText();
+            dataGridView2.Rows.Clear();
+            
+        }
+
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+        
         }
     }
 }

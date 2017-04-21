@@ -98,7 +98,7 @@ namespace compilador.AnalisisLexico
                         else if (";".Equals(caracterActual))
                         {
                             estadoActual = 13;
-                           // lexema += caracterActual;
+                            // lexema += caracterActual;
                         }
                         else if ("+".Equals(caracterActual))
                         {
@@ -192,7 +192,7 @@ namespace compilador.AnalisisLexico
                             estadoActual = 13;
                             lexema += "";
                         }
-                        else if("[".Equals(caracterActual))
+                        else if ("[".Equals(caracterActual))
                         {
                             estadoActual = 32;
                             lexema += caracterActual;
@@ -200,6 +200,11 @@ namespace compilador.AnalisisLexico
                         else if ("]".Equals(caracterActual))
                         {
                             estadoActual = 33;
+                            lexema += caracterActual;
+                        }
+                        else if ("\"".Equals(caracterActual))
+                        {
+                            estadoActual = 38;
                             lexema += caracterActual;
                         }
 
@@ -259,7 +264,7 @@ namespace compilador.AnalisisLexico
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
                         Form.datos(componente);
                         continuarEvaluacion = false;
-  
+
                         break;
                     case 6:
                         posicionInicial = (Puntero - 1) - lexema.Length;
@@ -368,7 +373,7 @@ namespace compilador.AnalisisLexico
                             categoria = "IDENTIFICADOR";
                             componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, categoria);
                         }
-                        
+
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
                         Form.datos(componente);
                         continuarEvaluacion = false;
@@ -593,6 +598,118 @@ namespace compilador.AnalisisLexico
                         continuarEvaluacion = false;
 
                         break;
+                    case 38:
+                        LeerSiguienteCaracter();
+                        if ("\\".Equals(caracterActual))
+                        {
+                            estadoActual = 39;
+                            //lexema += caracterActual;
+                        }
+                        else if ("\"".Equals(caracterActual))
+                        {
+                            estadoActual = 41;
+                            lexema += caracterActual;
+                        }
+                        else if ("@FL@".Equals(caracterActual))
+                        {
+                            CargarLinea();
+                            lexema += " ";
+                        }
+                        else if ("@EOF@".Equals(caracterActual))
+                        {
+                            DevolverPuntero();
+                            String MensajeError = "Se esperaba cerrar comillas";
+                            Error ErrorComillas = Error.CREATE(lineaActual.Numero, (Puntero - 1) - lexema.Length, caracterActual, MensajeError, "LEXICO");
+                            ManejadorErrores.ObtenerManejadorErrores().AgregarError(ErrorComillas);
+                            lexema += "\"";
+                            componente = ComponenteLexico.CREATE(lineaActual.Numero, (Puntero - 1) - lexema.Length, lexema, "LITERAL DUMMY");
+                            TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                            Form.datos(componente);
+                            Form.errores(ErrorComillas);
+                            continuarEvaluacion = false;
+                        }
+
+                        else
+                        {
+                            lexema += caracterActual;
+                        }
+                        
+                        break;
+                    case 39:
+                        LeerSiguienteCaracter();
+                        if ("\"".Equals(caracterActual))
+                        {
+                            estadoActual = 40;
+                            lexema += caracterActual;
+                        }
+                        else if ("@FL@".Equals(caracterActual))
+                        {
+                            CargarLinea();
+                            lexema += " ";
+                        }
+                        else if ("@EOF@".Equals(caracterActual))
+                        {
+                            DevolverPuntero();
+                            String MensajeError = "Se esperaba cerrar comillas";
+                            Error ErrorComillas = Error.CREATE(lineaActual.Numero, (Puntero - 1) - lexema.Length, caracterActual, MensajeError, "LEXICO");
+                            ManejadorErrores.ObtenerManejadorErrores().AgregarError(ErrorComillas);
+                            lexema += "\"";
+                            componente = ComponenteLexico.CREATE(lineaActual.Numero, (Puntero - 1) - lexema.Length, lexema, "LITERAL DUMMY");
+                            TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                            Form.datos(componente);
+                            Form.errores(ErrorComillas);
+                            continuarEvaluacion = false;
+                        }
+                        else
+                        {
+                            estadoActual = 38;
+                            lexema += caracterActual;
+                        }
+                        break;
+                    case 40:
+                        LeerSiguienteCaracter();
+                        if ("\"".Equals(caracterActual))
+                        {
+                            estadoActual = 41;
+                            lexema += caracterActual;
+                        }
+                        else if ("\\".Equals(caracterActual))
+                        {
+                            estadoActual = 39;
+                            //lexema += caracterActual;
+                        }
+                        else if("@FL@".Equals(caracterActual))
+                        {
+                            CargarLinea();
+                            lexema += " ";
+                        }
+                        else if ("@EOF@".Equals(caracterActual))
+                        {
+                            DevolverPuntero();
+                            String MensajeError = "Se esperaba cerrar comillas";
+                            Error ErrorComillas = Error.CREATE(lineaActual.Numero, (Puntero - 1) - lexema.Length, caracterActual, MensajeError, "LEXICO");
+                            ManejadorErrores.ObtenerManejadorErrores().AgregarError(ErrorComillas);
+                            lexema += "\"";
+                            componente = ComponenteLexico.CREATE(lineaActual.Numero, (Puntero - 1) - lexema.Length, lexema, "LITERAL DUMMY");
+                            TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                            Form.datos(componente);
+                            Form.errores(ErrorComillas);
+                            continuarEvaluacion = false;
+                        }
+                        else
+                        {
+                            lexema += caracterActual;
+                        }
+                        break;
+                    case 41:
+                        posicionInicial = (Puntero - 1) - lexema.Length;
+                        numeroLinea = lineaActual.Numero;
+                        componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "LITERAL");
+                        TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
+                        continuarEvaluacion = false;
+                        break;
+                   
 
                 }
 

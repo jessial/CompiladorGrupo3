@@ -603,7 +603,7 @@ namespace compilador.AnalisisLexico
                         if ("\\".Equals(caracterActual))
                         {
                             estadoActual = 39;
-                            //lexema += caracterActual;
+               
                         }
                         else if ("\"".Equals(caracterActual))
                         {
@@ -617,18 +617,9 @@ namespace compilador.AnalisisLexico
                         }
                         else if ("@EOF@".Equals(caracterActual))
                         {
-                            DevolverPuntero();
-                            String MensajeError = "Se esperaba cerrar comillas";
-                            Error ErrorComillas = Error.CREATE(lineaActual.Numero, (Puntero - 1) - lexema.Length, caracterActual, MensajeError, "LEXICO");
-                            ManejadorErrores.ObtenerManejadorErrores().AgregarError(ErrorComillas);
-                            lexema += "\"";
-                            componente = ComponenteLexico.CREATE(lineaActual.Numero, (Puntero - 1) - lexema.Length, lexema, "LITERAL DUMMY");
-                            TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
-                            Form.datos(componente);
-                            Form.errores(ErrorComillas);
-                            continuarEvaluacion = false;
+                            estadoActual = 42;
                         }
-
+         
                         else
                         {
                             lexema += caracterActual;
@@ -642,6 +633,10 @@ namespace compilador.AnalisisLexico
                             estadoActual = 40;
                             lexema += caracterActual;
                         }
+                        else if ("\\".Equals(caracterActual))
+                        {
+                            lexema += caracterActual;
+                        }
                         else if ("@FL@".Equals(caracterActual))
                         {
                             CargarLinea();
@@ -649,16 +644,7 @@ namespace compilador.AnalisisLexico
                         }
                         else if ("@EOF@".Equals(caracterActual))
                         {
-                            DevolverPuntero();
-                            String MensajeError = "Se esperaba cerrar comillas";
-                            Error ErrorComillas = Error.CREATE(lineaActual.Numero, (Puntero - 1) - lexema.Length, caracterActual, MensajeError, "LEXICO");
-                            ManejadorErrores.ObtenerManejadorErrores().AgregarError(ErrorComillas);
-                            lexema += "\"";
-                            componente = ComponenteLexico.CREATE(lineaActual.Numero, (Puntero - 1) - lexema.Length, lexema, "LITERAL DUMMY");
-                            TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
-                            Form.datos(componente);
-                            Form.errores(ErrorComillas);
-                            continuarEvaluacion = false;
+                            estadoActual = 42;
                         }
                         else
                         {
@@ -676,7 +662,6 @@ namespace compilador.AnalisisLexico
                         else if ("\\".Equals(caracterActual))
                         {
                             estadoActual = 39;
-                            //lexema += caracterActual;
                         }
                         else if("@FL@".Equals(caracterActual))
                         {
@@ -685,16 +670,7 @@ namespace compilador.AnalisisLexico
                         }
                         else if ("@EOF@".Equals(caracterActual))
                         {
-                            DevolverPuntero();
-                            String MensajeError = "Se esperaba cerrar comillas";
-                            Error ErrorComillas = Error.CREATE(lineaActual.Numero, (Puntero - 1) - lexema.Length, caracterActual, MensajeError, "LEXICO");
-                            ManejadorErrores.ObtenerManejadorErrores().AgregarError(ErrorComillas);
-                            lexema += "\"";
-                            componente = ComponenteLexico.CREATE(lineaActual.Numero, (Puntero - 1) - lexema.Length, lexema, "LITERAL DUMMY");
-                            TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
-                            Form.datos(componente);
-                            Form.errores(ErrorComillas);
-                            continuarEvaluacion = false;
+                            estadoActual = 42;
                         }
                         else
                         {
@@ -709,9 +685,20 @@ namespace compilador.AnalisisLexico
                         Form.datos(componente);
                         continuarEvaluacion = false;
                         break;
-                   
-
+                    case 42:
+                        DevolverPuntero();
+                        String MensajeError = "Se esperaba cerrar comillas";
+                        Error ErrorComillas = Error.CREATE(lineaActual.Numero, (Puntero - 1) - lexema.Length, caracterActual, MensajeError, "LEXICO");
+                        ManejadorErrores.ObtenerManejadorErrores().AgregarError(ErrorComillas);
+                        lexema += "\"";
+                        componente = ComponenteLexico.CREATE(lineaActual.Numero, (Puntero - 1) - lexema.Length, lexema, "LITERAL DUMMY");
+                        TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        Form.datos(componente);
+                        Form.errores(ErrorComillas);
+                        continuarEvaluacion = false;
+                        break;
                 }
+
 
             }
             return componente;

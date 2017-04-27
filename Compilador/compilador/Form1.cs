@@ -132,7 +132,8 @@ namespace compilador
 
         public void datos(ComponenteLexico data)
         {
-            dataGridView2.Rows.Add(data.Lexema, data.NumeroLinea, data.Categoria, data.PosicionInicialLinea, data.PosicionFinalLinea);
+            dataGridView2.Rows.Add(data.Lexema.Replace("\t", "       "), data.NumeroLinea, data.Categoria, data.PosicionInicialLinea, data.PosicionFinalLinea);
+          
         }
 
         private void codigo_TextChanged(object sender, EventArgs e)

@@ -324,7 +324,6 @@ namespace compilador.AnalisisLexico
                         posicionInicial = (Puntero - 1) - lexema.Length;
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "FIN DE ARCHIVO");
-                        Form.datos(componente);
                         continuarEvaluacion = false;
 
                         break;
@@ -681,7 +680,7 @@ namespace compilador.AnalisisLexico
                         posicionInicial = (Puntero - 1) - lexema.Length;
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "LITERAL");
-                        TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
+                        TablaLiterales.obtenerTablaLiterales().AgregarLiteral(componente);
                         Form.datos(componente);
                         continuarEvaluacion = false;
                         break;

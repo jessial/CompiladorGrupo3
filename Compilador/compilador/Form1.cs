@@ -129,10 +129,9 @@ namespace compilador
         {
             
         }
-
         public void datos(ComponenteLexico data)
         {
-            dataGridView2.Rows.Add(data.Lexema.Replace("\t", "       "), data.NumeroLinea, data.Categoria, data.PosicionInicialLinea, data.PosicionFinalLinea);
+            dataGridView.Rows.Add(data.Lexema.Replace("\t", "       "), data.NumeroLinea, data.Categoria, data.PosicionInicialLinea, data.PosicionFinalLinea);
           
         }
 
@@ -145,13 +144,28 @@ namespace compilador
         {
             codigo.ResetText();
             resultado.ResetText();
-            dataGridView2.Rows.Clear();
+            dataGridView.Rows.Clear();
             
         }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
         
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="AnalisisLexico\AnalizadorLexico.cs" />
     <Compile Include="AnalisisLexico\ComponenteLexico.cs" />
+    <Compile Include="AnalisisLexico\TablaLiterales.cs" />
     <Compile Include="AnalisisLexico\TablaSimbolos.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

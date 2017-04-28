@@ -44,15 +44,25 @@
             this.PosicionInicialError = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PosicionFinalError = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TipoError = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Lexema = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NumeroLinea = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Categoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PosicionInicial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PosicionFinal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button2 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dataGridViewLiterales = new System.Windows.Forms.DataGridView();
+            this.Literal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumeroDLinea = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Categorias = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PosicionIncial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PosicionFnal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLiterales)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCompilarCod
@@ -136,6 +146,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ValorRecibido,
@@ -148,6 +159,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(643, 187);
             this.dataGridView1.TabIndex = 8;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // ValorRecibido
             // 
@@ -179,22 +191,24 @@
             this.TipoError.HeaderText = "TipoError";
             this.TipoError.Name = "TipoError";
             // 
-            // dataGridView2
+            // dataGridView
             // 
-            this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridView.AllowUserToDeleteRows = false;
+            this.dataGridView.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Lexema,
             this.NumeroLinea,
             this.Categoria,
             this.PosicionInicial,
             this.PosicionFinal});
-            this.dataGridView2.Location = new System.Drawing.Point(695, 46);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.ReadOnly = true;
-            this.dataGridView2.Size = new System.Drawing.Size(545, 509);
-            this.dataGridView2.TabIndex = 9;
-            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
+            this.dataGridView.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dataGridView.Location = new System.Drawing.Point(695, 46);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.ReadOnly = true;
+            this.dataGridView.Size = new System.Drawing.Size(542, 302);
+            this.dataGridView.TabIndex = 9;
+            this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
             // Lexema
             // 
@@ -236,13 +250,86 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(732, 27);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(117, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "TABLA DE SIMBOLOS";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // dataGridViewLiterales
+            // 
+            this.dataGridViewLiterales.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dataGridViewLiterales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewLiterales.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Literal,
+            this.NumeroDLinea,
+            this.Categorias,
+            this.PosicionIncial,
+            this.PosicionFnal});
+            this.dataGridViewLiterales.Location = new System.Drawing.Point(695, 379);
+            this.dataGridViewLiterales.Name = "dataGridViewLiterales";
+            this.dataGridViewLiterales.Size = new System.Drawing.Size(542, 187);
+            this.dataGridViewLiterales.TabIndex = 12;
+            this.dataGridViewLiterales.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
+            // 
+            // Literal
+            // 
+            this.Literal.HeaderText = "Literal";
+            this.Literal.Name = "Literal";
+            // 
+            // NumeroDLinea
+            // 
+            this.NumeroDLinea.HeaderText = "NumeroDLinea ";
+            this.NumeroDLinea.Name = "NumeroDLinea";
+            // 
+            // Categorias
+            // 
+            this.Categorias.HeaderText = "Categorias";
+            this.Categorias.Name = "Categorias";
+            // 
+            // PosicionIncial
+            // 
+            this.PosicionIncial.HeaderText = "PosicionInicial ";
+            this.PosicionIncial.Name = "PosicionIncial";
+            // 
+            // PosicionFnal
+            // 
+            this.PosicionFnal.HeaderText = "PosicionFnal";
+            this.PosicionFnal.Name = "PosicionFnal";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(26, 334);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(123, 13);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "TABLA DE ERRRORES";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(735, 360);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(120, 13);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "TABLA DE LITERALES";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1300, 567);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.dataGridViewLiterales);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.dataGridView2);
+            this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnCargar);
@@ -259,7 +346,8 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLiterales)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -277,7 +365,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn Lexema;
         private System.Windows.Forms.DataGridViewTextBoxColumn NumeroLinea;
         private System.Windows.Forms.DataGridViewTextBoxColumn Categoria;
@@ -290,6 +378,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PosicionFinalError;
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoError;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dataGridViewLiterales;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Literal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NumeroDLinea;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Categorias;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PosicionIncial;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PosicionFnal;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
 

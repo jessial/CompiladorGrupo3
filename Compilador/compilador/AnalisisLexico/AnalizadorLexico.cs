@@ -255,7 +255,13 @@ namespace compilador.AnalisisLexico
                             estadoActual = 4;
                             lexema += caracterActual;
                         }
-                        else estadoActual = 16;
+                        else if (" ".Equals(caracterActual) || "@FL@".Equals(caracterActual) || "@EOF@".Equals(caracterActual))
+                        {
+                            estadoActual = 16;
+                        }
+                        else estadoActual = 18;
+                    
+                        
                         break;
                     case 5:
                         int posicionInicial = (Puntero - 1) - lexema.Length;
@@ -328,10 +334,6 @@ namespace compilador.AnalisisLexico
 
                         break;
                     case 13:
-                        /*posicionInicial = (Puntero - 1) - lexema.Length;
-                        numeroLinea = lineaActual.Numero;
-                        componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "SALTO DE LINEA");
-                        Form.datos(componente);*/
                         estadoActual = 0;
                         lexema = "";
                         CargarLinea();
@@ -399,8 +401,8 @@ namespace compilador.AnalisisLexico
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, caracterActual, "SIMBOLO NO VALIDO");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
                         Form.errores(ErrorSimboloInvalido);
-                        continuarEvaluacion = false;
-
+                        lexema+="_";
+                        estadoActual = 4;
                         break;
 
                     case 19:
@@ -681,7 +683,7 @@ namespace compilador.AnalisisLexico
                         numeroLinea = lineaActual.Numero;
                         componente = ComponenteLexico.CREATE(numeroLinea, posicionInicial, lexema, "LITERAL");
                         TablaLiterales.obtenerTablaLiterales().AgregarLiteral(componente);
-                        Form.datos(componente);
+                        Form.literales(componente);
                         continuarEvaluacion = false;
                         break;
                     case 42:
@@ -692,7 +694,7 @@ namespace compilador.AnalisisLexico
                         lexema += "\"";
                         componente = ComponenteLexico.CREATE(lineaActual.Numero, (Puntero - 1) - lexema.Length, lexema, "LITERAL DUMMY");
                         TablaSimbolos.obtenerTablaSimbolos().AgregarSimbolo(componente);
-                        Form.datos(componente);
+                        Form.literales(componente);
                         Form.errores(ErrorComillas);
                         continuarEvaluacion = false;
                         break;

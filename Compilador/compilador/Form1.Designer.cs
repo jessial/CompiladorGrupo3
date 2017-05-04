@@ -51,18 +51,23 @@
             this.PosicionInicial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PosicionFinal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button2 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewLiterales = new System.Windows.Forms.DataGridView();
             this.Literal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NumeroDLinea = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Categorias = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PosicionIncial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PosicionFnal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLiterales)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnCompilarCod
@@ -87,10 +92,10 @@
             // resultado
             // 
             this.resultado.Enabled = false;
-            this.resultado.Location = new System.Drawing.Point(368, 46);
+            this.resultado.Location = new System.Drawing.Point(12, 319);
             this.resultado.Multiline = true;
             this.resultado.Name = "resultado";
-            this.resultado.Size = new System.Drawing.Size(290, 302);
+            this.resultado.Size = new System.Drawing.Size(334, 302);
             this.resultado.TabIndex = 2;
             this.resultado.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             this.resultado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
@@ -146,6 +151,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -155,9 +161,9 @@
             this.PosicionInicialError,
             this.PosicionFinalError,
             this.TipoError});
-            this.dataGridView1.Location = new System.Drawing.Point(15, 368);
+            this.dataGridView1.Location = new System.Drawing.Point(-4, 6);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(643, 187);
+            this.dataGridView1.Size = new System.Drawing.Size(893, 569);
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -194,6 +200,7 @@
             // dataGridView
             // 
             this.dataGridView.AllowUserToDeleteRows = false;
+            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -203,10 +210,11 @@
             this.PosicionInicial,
             this.PosicionFinal});
             this.dataGridView.GridColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dataGridView.Location = new System.Drawing.Point(695, 46);
+            this.dataGridView.Location = new System.Drawing.Point(-4, 6);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            this.dataGridView.Size = new System.Drawing.Size(542, 302);
+            this.dataGridView.RowTemplate.ReadOnly = true;
+            this.dataGridView.Size = new System.Drawing.Size(890, 569);
             this.dataGridView.TabIndex = 9;
             this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
@@ -250,18 +258,9 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(732, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(117, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "TABLA DE SIMBOLOS";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
             // dataGridViewLiterales
             // 
+            this.dataGridViewLiterales.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewLiterales.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.dataGridViewLiterales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewLiterales.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -270,9 +269,9 @@
             this.Categorias,
             this.PosicionIncial,
             this.PosicionFnal});
-            this.dataGridViewLiterales.Location = new System.Drawing.Point(695, 379);
+            this.dataGridViewLiterales.Location = new System.Drawing.Point(-4, 6);
             this.dataGridViewLiterales.Name = "dataGridViewLiterales";
-            this.dataGridViewLiterales.Size = new System.Drawing.Size(542, 187);
+            this.dataGridViewLiterales.Size = new System.Drawing.Size(893, 569);
             this.dataGridViewLiterales.TabIndex = 12;
             this.dataGridViewLiterales.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
             // 
@@ -301,36 +300,58 @@
             this.PosicionFnal.HeaderText = "PosicionFnal";
             this.PosicionFnal.Name = "PosicionFnal";
             // 
-            // label2
+            // tabControl1
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 334);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(123, 13);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "TABLA DE ERRRORES";
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Location = new System.Drawing.Point(388, 51);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(900, 570);
+            this.tabControl1.TabIndex = 15;
+            this.tabControl1.Tag = "";
             // 
-            // label3
+            // tabPage1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(735, 360);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(120, 13);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "TABLA DE LITERALES";
+            this.tabPage1.Controls.Add(this.dataGridViewLiterales);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(892, 544);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "LITERALES";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.dataGridView);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(892, 544);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "SIMBOLOS";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.dataGridView1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(892, 544);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "ERRORES";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1300, 567);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.dataGridViewLiterales);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.dataGridView);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnCargar);
             this.Controls.Add(this.textArchivo);
@@ -348,6 +369,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLiterales)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -378,15 +403,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PosicionFinalError;
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoError;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridViewLiterales;
         private System.Windows.Forms.DataGridViewTextBoxColumn Literal;
         private System.Windows.Forms.DataGridViewTextBoxColumn NumeroDLinea;
         private System.Windows.Forms.DataGridViewTextBoxColumn Categorias;
         private System.Windows.Forms.DataGridViewTextBoxColumn PosicionIncial;
         private System.Windows.Forms.DataGridViewTextBoxColumn PosicionFnal;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
     }
 }
 

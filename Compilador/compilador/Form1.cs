@@ -131,8 +131,13 @@ namespace compilador
         }
         public void datos(ComponenteLexico data)
         {
-            dataGridView.Rows.Add(data.Lexema.Replace("\t", "       "), data.NumeroLinea, data.Categoria, data.PosicionInicialLinea, data.PosicionFinalLinea);
+            dataGridView.Rows.Add(data.Lexema, data.NumeroLinea, data.Categoria, data.PosicionInicialLinea, data.PosicionFinalLinea);
           
+        }
+        public void literales(ComponenteLexico literal)
+        {
+            dataGridViewLiterales.Rows.Add(literal.Lexema.Replace("\t", "       "), literal.NumeroLinea, literal.Categoria, literal.PosicionInicialLinea, literal.PosicionFinalLinea);
+
         }
 
         private void codigo_TextChanged(object sender, EventArgs e)
@@ -145,8 +150,12 @@ namespace compilador
             codigo.ResetText();
             resultado.ResetText();
             dataGridView.Rows.Clear();
-            
+            dataGridView1.Rows.Clear();
+            dataGridViewLiterales.Rows.Clear();
+
+
         }
+
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
